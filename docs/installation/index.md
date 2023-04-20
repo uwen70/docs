@@ -10,3 +10,4 @@ Die Erstinstallation von evcc erfordert aktuell noch etwas Fachwissen. Du sollte
 - [macOS](macos)
 - [Docker, Synology](docker)
 - [Manuelle Installation (inkl. Windows)](manual)
+- [Grafana Dashboard](grafana)
