@@ -191,6 +191,25 @@ chargers:
 
 <!-- AUTO-GENERATED FROM TEMPLATE - PLEASE EDIT HERE https://github.com/evcc-io/evcc/tree/master/templates/definition/charger  -->
 
+## Compleo eBox 💚
+
+```yaml
+chargers:
+  - name: my_charger
+    type: template
+    template: innogy-ebox
+    
+    # Modbus TCP
+    modbus: tcpip
+    id: 1
+    host: 192.0.2.2 # Hostname
+    port: 502 # Port 
+```
+
+<SponsorshipRequired />
+
+<!-- AUTO-GENERATED FROM TEMPLATE - PLEASE EDIT HERE https://github.com/evcc-io/evcc/tree/master/templates/definition/charger  -->
+
 ## Dadapower Premium Wallbox
 
 ```yaml
@@ -263,15 +282,13 @@ chargers:
 
 <!-- AUTO-GENERATED FROM TEMPLATE - PLEASE EDIT HERE https://github.com/evcc-io/evcc/tree/master/templates/definition/charger  -->
 
-### vBox Smart/Pro 💚
-
-Firmware 2.77 für Modbus benötigt
+### vBox 💚
 
 ```yaml
 chargers:
   - name: my_charger
     type: template
-    template: eon-vbox
+    template: vestel
     
     # Modbus TCP
     modbus: tcpip
@@ -291,8 +308,8 @@ chargers:
   - name: my_charger
     type: template
     template: easee
-    user: # Benutzerkonto (bspw. E-Mail Adresse, User Id, etc.)
-    password: # Passwort des Benutzerkontos (bei führenden Nullen bitte in einfache Hochkommata setzen)
+    user: # E-Mail Adresse oder Telefonnummer mit Ländervorwahl (+XX)
+    password: # wie Login für Easee App oder Web Portal (https://easee.cloud)
     charger: EH______ 
 ```
 
@@ -387,6 +404,25 @@ chargers:
     template: elliconnect
     ski: # Die SKI der Wallbox, üblicherweise im Web Interface der Wallbox zu finden
     ip: 192.0.2.2 # IP-Adresse 
+```
+
+<!-- AUTO-GENERATED FROM TEMPLATE - PLEASE EDIT HERE https://github.com/evcc-io/evcc/tree/master/templates/definition/charger  -->
+
+## EM2GO Pro Power/OCPP/ONC
+
+Aktuelle Firmware mit Modbus-Unterstützung notwendig (Pro Power: 1.01 bzw. OCPP/ONC: 3.15)
+
+```yaml
+chargers:
+  - name: my_charger
+    type: template
+    template: em2go
+    
+    # Modbus TCP
+    modbus: tcpip
+    id: 255
+    host: 192.0.2.2 # Hostname
+    port: 502 # Port 
 ```
 
 <!-- AUTO-GENERATED FROM TEMPLATE - PLEASE EDIT HERE https://github.com/evcc-io/evcc/tree/master/templates/definition/charger  -->
@@ -1486,12 +1522,13 @@ Bei OCPP verbindet sich die Wallbox (Client) zu evcc (Server).
 Die Wallbox muss daher evcc via Hostname (funktionierende DNS-Auflösung erforderlich!) oder über die IP-Adresse auf Port 8887 erreichen können.
 Standardmäßig wird die erste eingehende Verbindung mit einer beliebigen Ladepunktkennung verwendet.
 Um mehrere Ladepunkte eindeutig zuordnen zu können müssen die jeweilige Stationskennung (`stationid: `) und Anschlussnummer (`connector: `) hinterlegt werden.
+Viele Wallboxen fügen die `stationid` automatisch der Backend-URL hinzu, bei manchen muss dies händisch geschehen `ws://<evcc>:8887/<stationid>`.
 Gegebenenfalls benötigt der Ladepunkt eine vorkonfigurierte (virtuelle) Token-ID/RFID-Kennung (`idtag: `) mit der die Ladevorgänge ohne Authentifizierung gestartet werden können.
 Für Zählermesswerte sollte in der Wallbox ein kurzes Zeitintervall konfiguriert werden.
 
 Voraussetzungen:
 * Ggf. zuvor konfigurierte OCPP-Profile (z.B. durch eine andere Backend-Anbindung) in der Wallboxkonfiguration entfernen
-* Backend-URL (Central System) in der Wallboxkonfiguration: `ws://<evcc-IP-Adresse>:8887/`
+* Backend-URL (Central System) in der Wallboxkonfiguration: `ws://<evcc-IP-Adresse>:8887/` (evtl noch um `stationid` erweitern)
 * Protokoll: OCPP-J v1.6, ocpp16j, JSON, Websocket, ws:// o.ä.
 * Keine Verschlüsselung, keine Authentifizierung, kein Passwort
 * Verbindung über das lokale Netzwerk
